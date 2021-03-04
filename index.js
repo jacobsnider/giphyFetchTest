@@ -3,6 +3,7 @@
 const card = document.querySelector('.card');
 const img = card.querySelector('img');
 const btn = card.querySelector('button');
+var giphyResults;
 var gifUrl;
 var gifTitle;
 
@@ -26,7 +27,8 @@ function fetchData(url) {
 }
 fetchData(url)
     .then(json => {
-        gifUrl = generateGif(json.data);
+        giphyResults = generateGif(json.data);
+        gifUrl = randomGif(giphyResults);
         displayGif(gifUrl);
     })
 
@@ -36,6 +38,11 @@ fetchData(url)
 // Recieve json & select random url from response array
 function generateGif(json) {
     let giphyResults = json;
+    console.log(giphyResults);
+    return giphyResults;
+}
+
+function randomGif(giphyResults) {
     let random = giphyResults[~~(Math.random() * giphyResults.length)];
     gifUrl = random.images.original.url;
     gifTitle = random.title;
